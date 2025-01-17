@@ -6,7 +6,10 @@ namespace GuessTheNumberGame
     {
         int inputInterval(string text, int minValue, int maxValue);
         int inputInt(string text);
-        void DisplayMessage(string message);
+        void ShowMessage(string message);
+        void ShowMessageError(string message);
+        void ShowMessageSuccess(string message);
+
     }
 
     public class ConsoleUserInput : IUserInput
@@ -69,8 +72,19 @@ namespace GuessTheNumberGame
             return x;
         }
 
-        public void DisplayMessage(string message)
+        public void ShowMessage(string message)
         {
+            Console.ResetColor();
+            Console.WriteLine(message);
+        }
+        public void ShowMessageError(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(message);
+        }
+        public void ShowMessageSuccess(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(message);
         }
     }
@@ -107,7 +121,7 @@ namespace GuessTheNumberGame
 
         public void Start()
         {
-            _userInput.DisplayMessage("Ларионов гр. 410з Игра \"Угадай число\"!");
+            _userInput.ShowMessage("Ларионов гр. 410з Игра \"Угадай число\"!");
 
             int rangeStart = _userInput.inputInterval("Введите начало диапазона:", START_INTERVAL, END_INTERVAL);
             int rangeEnd = _userInput.inputInterval("Введите конец диапазона:", START_INTERVAL, END_INTERVAL);
@@ -122,26 +136,26 @@ namespace GuessTheNumberGame
 
                 if (playerGuess == numberToGuess)
                 {
-                    _userInput.DisplayMessage("Поздравляем! Вы угадали число.");
+                    _userInput.ShowMessageSuccess("Поздравляем! Вы угадали число.");
                     isGuessed = true;
                     break;
                 }
                 else if (playerGuess < numberToGuess)
                 {
-                    _userInput.DisplayMessage("Загаданное число больше.");
+                    _userInput.ShowMessage("Загаданное число больше.");
                 }
                 else
                 {
-                    _userInput.DisplayMessage("Загаданное число меньше.");
+                    _userInput.ShowMessage("Загаданное число меньше.");
                 }
             }
 
             if (!isGuessed)
             {
-                _userInput.DisplayMessage($"Вы проиграли. Загаданное число было: {numberToGuess}");
+                _userInput.ShowMessageError($"Вы проиграли. Загаданное число было: {numberToGuess}");
             }
 
-            _userInput.DisplayMessage("Спасибо за игру!");
+            _userInput.ShowMessage("Спасибо за игру!");
         }
     }
 
