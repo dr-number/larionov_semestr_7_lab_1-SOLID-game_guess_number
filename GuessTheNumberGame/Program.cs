@@ -109,7 +109,7 @@ namespace GuessTheNumberGame
         private const int START_SHIFT = 5;
         private const int START_INTERVAL = -1000;
         private const int END_INTERVAL = 1000;
-        private const int COUNT_ATTEMPS = 10;
+        private const int COUNT_ATTEMPS = 50;
 
         private readonly IUserInput _userInput;
         private readonly IRandomNumberGenerator _randomNumberGenerator;
@@ -130,7 +130,7 @@ namespace GuessTheNumberGame
             {
                 rangeStart = _userInput.inputInterval("Введите начало диапазона:", START_INTERVAL, END_INTERVAL);
                 rangeEnd = _userInput.inputInterval("Введите конец диапазона:", rangeStart + START_SHIFT, END_INTERVAL);
-                attempts = _userInput.inputInterval("Введите количество попыток:", 1, COUNT_ATTEMPS);
+                attempts = _userInput.inputInterval("Введите количество попыток:", 1, rangeEnd - rangeStart - 1);
 
                 if (attempts > rangeEnd - rangeStart)
                 {
