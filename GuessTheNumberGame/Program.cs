@@ -125,14 +125,16 @@ namespace GuessTheNumberGame
             int rangeStart;
             int rangeEnd;
             int attempts;
+            int size;
 
             while (true)
             {
-                rangeStart = _userInput.inputInterval("Введите начало диапазона:", START_INTERVAL, END_INTERVAL);
-                rangeEnd = _userInput.inputInterval("Введите конец диапазона:", rangeStart + START_SHIFT, END_INTERVAL);
-                attempts = _userInput.inputInterval("Введите количество попыток:", 1, rangeEnd - rangeStart - 1);
+                rangeStart = _userInput.inputInterval($"Введите начало диапазона: [{START_INTERVAL}; {END_INTERVAL}]", START_INTERVAL, END_INTERVAL);
+                rangeEnd = _userInput.inputInterval($"Введите конец диапазона: [{rangeStart + START_SHIFT}; {END_INTERVAL}]", rangeStart + START_SHIFT, END_INTERVAL);
+                size = Math.Abs(rangeEnd - rangeStart);
+                attempts = _userInput.inputInterval($"Введите количество попыток: [1; {size - 1}]", 1, size - 1);
 
-                if (attempts > rangeEnd - rangeStart)
+                if (attempts > size)
                 {
                     _userInput.ShowMessageError($"Количество попыток покрывает весь интервал!");
                 }
@@ -144,6 +146,7 @@ namespace GuessTheNumberGame
 
             int numberToGuess = _randomNumberGenerator.Generate(rangeStart, rangeEnd);
 
+            _userInput.ShowMessageSuccess($"Угадайте число на диапазоне: [{rangeStart}; {rangeEnd}]");
             bool isGuessed = false;
             for (int i = 1; i <= attempts; i++)
             {
