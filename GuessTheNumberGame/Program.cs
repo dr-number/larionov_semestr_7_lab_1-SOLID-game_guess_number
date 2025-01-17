@@ -106,6 +106,7 @@ namespace GuessTheNumberGame
 
     public class Game
     {
+        private const int START_SHIFT = 5;
         private const int START_INTERVAL = -1000;
         private const int END_INTERVAL = 1000;
         private const int COUNT_ATTEMPS = 10;
@@ -121,9 +122,25 @@ namespace GuessTheNumberGame
 
         public void Start()
         {
-            int rangeStart = _userInput.inputInterval("Введите начало диапазона:", START_INTERVAL, END_INTERVAL);
-            int rangeEnd = _userInput.inputInterval("Введите конец диапазона:", START_INTERVAL, END_INTERVAL);
-            int attempts = _userInput.inputInterval("Введите количество попыток:", 1, COUNT_ATTEMPS);
+            int rangeStart;
+            int rangeEnd;
+            int attempts;
+
+            while (true)
+            {
+                rangeStart = _userInput.inputInterval("Введите начало диапазона:", START_INTERVAL, END_INTERVAL);
+                rangeEnd = _userInput.inputInterval("Введите конец диапазона:", rangeStart + START_SHIFT, END_INTERVAL);
+                attempts = _userInput.inputInterval("Введите количество попыток:", 1, COUNT_ATTEMPS);
+
+                if (attempts > rangeEnd - rangeStart)
+                {
+                    _userInput.ShowMessageError($"Количество попыток покрывает весь интервал!");
+                }
+                else
+                {
+                    break;
+                }
+            }
 
             int numberToGuess = _randomNumberGenerator.Generate(rangeStart, rangeEnd);
 
