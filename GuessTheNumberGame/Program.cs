@@ -121,8 +121,6 @@ namespace GuessTheNumberGame
 
         public void Start()
         {
-            _userInput.ShowMessage("Ларионов гр. 410з Игра \"Угадай число\"!");
-
             int rangeStart = _userInput.inputInterval("Введите начало диапазона:", START_INTERVAL, END_INTERVAL);
             int rangeEnd = _userInput.inputInterval("Введите конец диапазона:", START_INTERVAL, END_INTERVAL);
             int attempts = _userInput.inputInterval("Введите количество попыток:", 1, COUNT_ATTEMPS);
@@ -154,20 +152,35 @@ namespace GuessTheNumberGame
             {
                 _userInput.ShowMessageError($"Вы проиграли. Загаданное число было: {numberToGuess}");
             }
-
-            _userInput.ShowMessage("Спасибо за игру!");
         }
     }
 
     class Program
     {
+        public static bool isQuestion(string textQuestion)
+        {
+            Console.WriteLine("\n" + textQuestion);
+            return Console.ReadLine()?.ToLower() != "n";
+        }
         static void Main(string[] args)
         {
+            Console.ResetColor();
+            Console.WriteLine("Ларионов гр. 410з Игра \"Угадай число\"!");
+
             IUserInput userInput = new ConsoleUserInput();
             IRandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
 
-            Game game = new Game(userInput, randomNumberGenerator);
-            game.Start();
+            while (true)
+            {
+                Game game = new Game(userInput, randomNumberGenerator);
+                game.Start();
+
+                Console.ResetColor();
+                if (!isQuestion("Сыграем ещё раз [y/n]?")) {
+                    Console.WriteLine("Спасибо за игру!");
+                    break;
+                }
+            }
         }
     }
 }
