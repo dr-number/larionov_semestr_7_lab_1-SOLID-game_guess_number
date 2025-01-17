@@ -109,7 +109,6 @@ namespace GuessTheNumberGame
         private const int START_SHIFT = 5;
         private const int START_INTERVAL = -1000;
         private const int END_INTERVAL = 1000;
-        private const int COUNT_ATTEMPS = 50;
 
         private readonly IUserInput _userInput;
         private readonly IRandomNumberGenerator _randomNumberGenerator;
@@ -148,22 +147,25 @@ namespace GuessTheNumberGame
 
             _userInput.ShowMessageSuccess($"Угадайте число на диапазоне: [{rangeStart}; {rangeEnd}]");
             bool isGuessed = false;
-            for (int i = 1; i <= attempts; i++)
+            int currentCountAttempts = 0;
+            for (int i = 1; i <= attempts; ++i)
             {
                 int playerGuess = _userInput.inputInt($"Попытка {i}/{attempts}. Введите ваше предположение:");
 
                 if (playerGuess == numberToGuess)
                 {
-                    _userInput.ShowMessageSuccess("Поздравляем! Вы угадали число.");
+                    _userInput.ShowMessageSuccess($"Поздравляем! Вы угадали число с {currentCountAttempts + 1} попыток!");
                     isGuessed = true;
                     break;
                 }
                 else if (playerGuess < numberToGuess)
                 {
+                    ++currentCountAttempts;
                     _userInput.ShowMessage("Загаданное число больше.");
                 }
                 else
                 {
+                    ++currentCountAttempts;
                     _userInput.ShowMessage("Загаданное число меньше.");
                 }
             }
