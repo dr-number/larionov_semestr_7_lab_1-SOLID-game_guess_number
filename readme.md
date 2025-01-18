@@ -6,10 +6,10 @@
 Пусть игрок может выбирать уровень сложности игры. Например количество попыток на угадывание и диапазон в котором программа генерирует число. 
 Написать нужно так, чтобы удовлетворял всем принципам **SOLID**
 
-**6)	Вычислить скалярное произведение векторов произвольной размерности**
+**Пользователь угадал число с двух попыток**
 <figure>
    <p align="center">
-      <img src="https://github.com/dr-number/larionov_lab_5_sub_programms/blob/master/screens/6-1.jpg">
+      <img src="https://github.com/dr-number/larionov_semestr_7_lab_1-SOLID-game_guess_number/blob/main/for_read_me/1.png">
    </p>
 </figure>
 
