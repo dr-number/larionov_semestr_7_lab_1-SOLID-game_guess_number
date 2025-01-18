@@ -25,16 +25,8 @@
 </p>
 </br>
 
-**26) Вычислить полярные координаты для точек, лежащих внутри круга радиусом R с центром в начале координат**
-
 <p align="center">
-   <img src="https://github.com/dr-number/larionov_lab_5_sub_programms/blob/master/screens/26-1.jpg">
-   <p align="center">Ручной ввод исходных данных</p>
-</p>
-</br>
-
-<p align="center">
-   <img src="https://github.com/dr-number/larionov_lab_5_sub_programms/blob/master/screens/26-2.jpg">
-   <p align="center">Исходные данные на основе случайных чисел</p>
+   <img src="https://github.com/dr-number/larionov_semestr_7_lab_1-SOLID-game_guess_number/blob/main/for_read_me/4.png">
+   <p align="center">Число на максимальном интервале угадано</p>
 </p>
 </br>
