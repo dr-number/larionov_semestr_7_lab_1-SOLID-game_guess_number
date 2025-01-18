@@ -104,9 +104,11 @@
 
     public class Game
     {
-        private const int START_SHIFT = 5;
-        private const int START_INTERVAL = -1000;
-        private const int END_INTERVAL = 1000;
+        private const int MIN_START_INTERVAL = -1000;
+        private const int MAX_START_INTERVAL = -10;
+        private const int MIN_END_INTERVAL = 10;
+        private const int MAX_END_INTERVAL = 1000;
+        private const int MIN_COUNT_ATTEMPTS = 1;
 
         private readonly IUserInput userInput;
         private readonly IRandomNumberGenerator randomNumberGenerator;
@@ -119,31 +121,15 @@
 
         public void Start()
         {
-            int rangeStart;
-            int rangeEnd;
-            int attempts;
-            int size;
+            int rangeStart = userInput.inputInterval($"Введите начало диапазона: [{MIN_START_INTERVAL}; {MAX_START_INTERVAL}]", MIN_START_INTERVAL, MAX_START_INTERVAL);
+            int rangeEnd = userInput.inputInterval($"Введите конец диапазона: [{MIN_END_INTERVAL}; {MAX_END_INTERVAL}]", MIN_END_INTERVAL, MAX_END_INTERVAL);
 
-            while (true)
-            {
-                rangeStart = userInput.inputInterval($"Введите начало диапазона: [{START_INTERVAL}; {END_INTERVAL}]", START_INTERVAL, END_INTERVAL);
-                rangeEnd = userInput.inputInterval($"Введите конец диапазона: [{rangeStart + START_SHIFT}; {END_INTERVAL}]", rangeStart + START_SHIFT, END_INTERVAL);
-                size = Math.Abs(rangeEnd - rangeStart);
-                attempts = userInput.inputInterval($"Введите количество попыток: [1; {size - 1}]", 1, size - 1);
-
-                if (attempts > size)
-                {
-                    userInput.ShowMessageError($"Количество попыток покрывает весь интервал!");
-                }
-                else
-                {
-                    break;
-                }
-            }
+            int maxCountAttempts = rangeEnd - rangeStart - 1;
+            int attempts = userInput.inputInterval($"Введите количество попыток: [{MIN_COUNT_ATTEMPTS}; {maxCountAttempts}]", MIN_COUNT_ATTEMPTS, maxCountAttempts);
 
             int numberToGuess = randomNumberGenerator.Generate(rangeStart, rangeEnd);
 
-            userInput.ShowMessageSuccess($"Угадайте число на диапазоне: [{rangeStart}; {rangeEnd}]");
+            userInput.ShowMessageSuccess($"Угадайте число на диапазоне: [{rangeStart}; {rangeEnd}] у Вас максимум {attempts} попыток");
             bool isGuessed = false;
             int currentCountAttempts = 0;
             for (int i = 1; i <= attempts; ++i)
