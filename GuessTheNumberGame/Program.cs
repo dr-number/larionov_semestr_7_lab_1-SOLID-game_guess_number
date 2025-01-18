@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GuessTheNumberGame
+﻿namespace GuessTheNumberGame
 {
     public interface IUserInput
     {
@@ -96,11 +94,11 @@ namespace GuessTheNumberGame
 
     public class RandomNumberGenerator : IRandomNumberGenerator
     {
-        private readonly Random _random = new Random();
+        private readonly Random myRandom = new Random();
 
         public int Generate(int min, int max)
         {
-            return _random.Next(min, max + 1);
+            return myRandom.Next(min, max + 1);
         }
     }
 
@@ -110,13 +108,13 @@ namespace GuessTheNumberGame
         private const int START_INTERVAL = -1000;
         private const int END_INTERVAL = 1000;
 
-        private readonly IUserInput _userInput;
-        private readonly IRandomNumberGenerator _randomNumberGenerator;
+        private readonly IUserInput userInput;
+        private readonly IRandomNumberGenerator randomNumberGenerator;
 
         public Game(IUserInput userInput, IRandomNumberGenerator randomNumberGenerator)
         {
-            _userInput = userInput;
-            _randomNumberGenerator = randomNumberGenerator;
+            this.userInput = userInput;
+            this.randomNumberGenerator = randomNumberGenerator;
         }
 
         public void Start()
@@ -128,14 +126,14 @@ namespace GuessTheNumberGame
 
             while (true)
             {
-                rangeStart = _userInput.inputInterval($"Введите начало диапазона: [{START_INTERVAL}; {END_INTERVAL}]", START_INTERVAL, END_INTERVAL);
-                rangeEnd = _userInput.inputInterval($"Введите конец диапазона: [{rangeStart + START_SHIFT}; {END_INTERVAL}]", rangeStart + START_SHIFT, END_INTERVAL);
+                rangeStart = userInput.inputInterval($"Введите начало диапазона: [{START_INTERVAL}; {END_INTERVAL}]", START_INTERVAL, END_INTERVAL);
+                rangeEnd = userInput.inputInterval($"Введите конец диапазона: [{rangeStart + START_SHIFT}; {END_INTERVAL}]", rangeStart + START_SHIFT, END_INTERVAL);
                 size = Math.Abs(rangeEnd - rangeStart);
-                attempts = _userInput.inputInterval($"Введите количество попыток: [1; {size - 1}]", 1, size - 1);
+                attempts = userInput.inputInterval($"Введите количество попыток: [1; {size - 1}]", 1, size - 1);
 
                 if (attempts > size)
                 {
-                    _userInput.ShowMessageError($"Количество попыток покрывает весь интервал!");
+                    userInput.ShowMessageError($"Количество попыток покрывает весь интервал!");
                 }
                 else
                 {
@@ -143,36 +141,36 @@ namespace GuessTheNumberGame
                 }
             }
 
-            int numberToGuess = _randomNumberGenerator.Generate(rangeStart, rangeEnd);
+            int numberToGuess = randomNumberGenerator.Generate(rangeStart, rangeEnd);
 
-            _userInput.ShowMessageSuccess($"Угадайте число на диапазоне: [{rangeStart}; {rangeEnd}]");
+            userInput.ShowMessageSuccess($"Угадайте число на диапазоне: [{rangeStart}; {rangeEnd}]");
             bool isGuessed = false;
             int currentCountAttempts = 0;
             for (int i = 1; i <= attempts; ++i)
             {
-                int playerGuess = _userInput.inputInt($"Попытка {i}/{attempts}. Введите ваше предположение:");
+                int playerGuess = userInput.inputInt($"Попытка {i}/{attempts}. Введите ваше предположение:");
 
                 if (playerGuess == numberToGuess)
                 {
-                    _userInput.ShowMessageSuccess($"Поздравляем! Вы угадали число с {currentCountAttempts + 1} попыток!");
+                    userInput.ShowMessageSuccess($"Поздравляем! Вы угадали число с {currentCountAttempts + 1} попыток!");
                     isGuessed = true;
                     break;
                 }
                 else if (playerGuess < numberToGuess)
                 {
                     ++currentCountAttempts;
-                    _userInput.ShowMessage("Загаданное число больше.");
+                    userInput.ShowMessage("Загаданное число больше.");
                 }
                 else
                 {
                     ++currentCountAttempts;
-                    _userInput.ShowMessage("Загаданное число меньше.");
+                    userInput.ShowMessage("Загаданное число меньше.");
                 }
             }
 
             if (!isGuessed)
             {
-                _userInput.ShowMessageError($"Вы проиграли. Загаданное число было: {numberToGuess}");
+                userInput.ShowMessageError($"Вы проиграли. Загаданное число было: {numberToGuess}");
             }
         }
     }
