@@ -134,7 +134,7 @@
             int currentCountAttempts = 0;
             for (int i = 1; i <= attempts; ++i)
             {
-                int playerGuess = userInput.inputInt($"Попытка {i}/{attempts}. Введите ваше предположение:");
+                int playerGuess = userInput.inputInt($"\nПопытка {i}/{attempts}. Введите ваше предположение:");
 
                 if (playerGuess == numberToGuess)
                 {

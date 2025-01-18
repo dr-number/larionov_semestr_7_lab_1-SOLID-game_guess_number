@@ -20,8 +20,8 @@
 </br>
 
 <p align="center">
-   <img src="https://github.com/dr-number/larionov_lab_5_sub_programms/blob/master/screens/16-2.jpg">
-   <p align="center">Расчет по сложным процентам</p>
+   <img src="https://github.com/dr-number/larionov_semestr_7_lab_1-SOLID-game_guess_number/blob/main/for_read_me/3.png">
+   <p align="center">Число на максимальном интервале не угадано</p>
 </p>
 </br>
 
