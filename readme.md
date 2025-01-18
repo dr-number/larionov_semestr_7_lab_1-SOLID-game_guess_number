@@ -20,6 +20,12 @@
 </br>
 
 <p align="center">
+   <img src="https://github.com/dr-number/larionov_semestr_7_lab_1-SOLID-game_guess_number/blob/main/for_read_me/5.png">
+   <p align="center">Проверка на ввод некорректных данных</p>
+</p>
+</br>
+
+<p align="center">
    <img src="https://github.com/dr-number/larionov_semestr_7_lab_1-SOLID-game_guess_number/blob/main/for_read_me/3.png">
    <p align="center">Число на максимальном интервале не угадано</p>
 </p>
